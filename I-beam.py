@@ -44,6 +44,7 @@ class IBeam:
         self.height = 0
         self.permStressT = 0
         self.permStressC = 0
+        self.appliedM = 0
         
     def inputDimensions(self):
         print("Input dimensions: ")
@@ -62,6 +63,7 @@ class IBeam:
         self.span = float(input("Span length (m): "))
         self.permStressC = float(input("Permissible Stress (Compression) (N/mm2): "))
         self.permStressT = float(input("Permissible Stress (Tension)     (N/mm2): "))
+        self.appliedM    = float(input("Applied bending moment            (kN-m): "))
         self.height = self.FlangeL.height + self.Web.height + self.FlangeU.height
 
     def ybar(self):
@@ -105,15 +107,23 @@ class IBeam:
     def maxTotalLoad(self):
         return self.maxUDL() * self.span
 
+    def maxInducedStressT(self):
+        return self.appliedM * 1000000 * self.yMaxT() / self.I()
+
+    def maxInducedStressC(self):
+        return self.appliedM * 1000000 * self.yMaxC() / self.I()
+
     def printAnalysis(self):
-        print("--- Analysis ---")
-        print("Moment of Inertia (about NA)        : %.4f mm4"  % self.I())
-        print("Max Tensile Moment      (MT)        : %.4f kN-m" % self.mMaxT())
-        print("Max Compressive Moment  (MC)        : %.4f kN-m" % self.mMaxC())
-        print("Moment of Resistance   (MOR)        : %.4f kN-m" % self.MOR())
-        print("Maximum UDL across the span         : %.4f kN/m" % self.maxUDL())
-        print("Maximum total load across the span  : %.4f kN"   % self.maxTotalLoad())
-        print("Maximum concentrated load at midspan: %.4f kN"   % self.maxConc())
+        print("\n--- Analysis ---")
+        print("Moment of Inertia (about NA)        : %.4f mm4"   % self.I())
+        print("Max Tensile Moment      (MT)        : %.4f kN-m"  % self.mMaxT())
+        print("Max Compressive Moment  (MC)        : %.4f kN-m"  % self.mMaxC())
+        print("Moment of Resistance   (MOR)        : %.4f kN-m"  % self.MOR())
+        print("Maximum UDL across the span         : %.4f kN/m"  % self.maxUDL())
+        print("Maximum total load across the span  : %.4f kN"    % self.maxTotalLoad())
+        print("Maximum concentrated load at midspan: %.4f kN"    % self.maxConc())
+        print("Maximum induced tensile stress      : %.4f N/mm2" % self.maxInducedStressT())
+        print("Maximum induced compressive stress  : %.4f N/mm2" % self.maxInducedStressC())
 
 print("\nI-beam: Structural Analysis")
 print("(c) Afaan Bilal ( https://afaan.ml )\n")

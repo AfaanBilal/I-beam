@@ -11,6 +11,7 @@ Basic structural analysis of an I-beam.
 - Span length
 - Permissible Stress (Compression)
 - Permissible Stress (Tension)
+- Applied bending moment
 
 ### Output:
 - Moment of Inertia (about the neutral axis)
@@ -20,3 +21,5 @@ Basic structural analysis of an I-beam.
 - Maximum UDL across the span
 - Maximum total load across the span
 - Maximum concentrated load at midspan
+- Maximum induced tensile stress 
+- Maximum induced compressive stress
