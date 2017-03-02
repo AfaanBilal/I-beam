@@ -113,6 +113,14 @@ class IBeam:
     def maxInducedStressC(self):
         return self.appliedM * 1000000 * self.yMaxC() / self.I()
 
+    def totalForceT(self):
+        areaUnderTension = self.FlangeL.area() + ( self.yMaxT() - self.FlangeL.height ) * self.Web.width
+        return self.maxInducedStressT() / 2 * areaUnderTension / 1000
+
+    def totalForceC(self):
+        areaUnderCompression = self.FlangeU.area() + ( self.yMaxC() - self.FlangeU.height ) * self.Web.width
+        return self.maxInducedStressC() / 2 * areaUnderCompression / 1000
+
     def printAnalysis(self):
         print("\n--- Analysis ---")
         print("Moment of Inertia (about NA)        : %.4f mm4"   % self.I())
@@ -124,6 +132,8 @@ class IBeam:
         print("Maximum concentrated load at midspan: %.4f kN"    % self.maxConc())
         print("Maximum induced tensile stress      : %.4f N/mm2" % self.maxInducedStressT())
         print("Maximum induced compressive stress  : %.4f N/mm2" % self.maxInducedStressC())
+        print("Total tensile force                 : %.4f kN"     % self.totalForceT())
+        print("Total compressive force             : %.4f kN"     % self.totalForceC())
 
 print("\nI-beam: Structural Analysis")
 print("(c) Afaan Bilal ( https://afaan.ml )\n")

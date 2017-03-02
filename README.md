@@ -23,3 +23,5 @@ Basic structural analysis of an I-beam.
 - Maximum concentrated load at midspan
 - Maximum induced tensile stress 
 - Maximum induced compressive stress
+- Total tensile force
+- Total compressive force
