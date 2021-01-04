@@ -1,7 +1,7 @@
 I-beam - Structural Analysis
 =========================
 
-### Author: [Afaan Bilal](https://afaan.me)
+### Author: [Afaan Bilal](https://afaan.dev)
 
 Basic structural analysis of an I-beam.
 
